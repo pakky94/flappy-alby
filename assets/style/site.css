@@ -1,0 +1,27 @@
+﻿@font-face {
+    font-family: nintendo;
+    src: url('../fonts/Nintendo.ttf');
+}
+
+body {
+    font-size: 16px;
+    font-family: nintendo, serif, sans-serif;
+}
+
+button {
+    font-family: inherit;
+    font-size: 1.5em;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    align-items: center;
+}
+
+.title {
+    font-size: 4em;
+    margin: 10vh 0 2vh;
+}
