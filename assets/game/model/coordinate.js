@@ -6,21 +6,12 @@
         this.width = Math.floor(width);
     }
 
-    moveTop(step) {
-        this.top -= step;
-    }
+    clone = () => new Coordinate(this.top, this.left, this.height, this.width);
 
-    moveRight(step) {
-        this.left += step;
-    }
-
-    moveBottom(step) {
-        this.top += step;
-    }
-
-    moveLeft(step) {
-        this.left -= step;
-    }
+    moveTop = step => this.top -= step;
+    moveRight = step => this.left += step;
+    moveBottom = step => this.top += step;
+    moveLeft = step => this.left -= step;
 
     intersect(c) {
         let result =

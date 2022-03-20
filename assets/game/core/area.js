@@ -1,25 +1,29 @@
 ﻿import {Helpers} from '../helpers/helpers.js';
-import {Coordinate} from "./coordinate.js";
+import {Coordinate} from "../model/coordinate.js";
 import {Block} from "./block.js";
 
 export class Area {
     #html;
     #coordinate;
 
-    constructor(html) {
+    constructor(html, coordinate) {
         this.#html = html;
-        this.#coordinate = new Coordinate(0, 0, html.clientHeight, html.clientWidth);
+        this.#coordinate = coordinate;
     }
 
     get coordinate() {
         return this.#coordinate;
     }
 
-    add(coordinate = new Coordinate(), id = Helpers.uuidv4()) {
+    add(coordinate, id = Helpers.uuidv4()) {
         let block = document.createElement('div');
 
         block.classList.add('block');
         block.id = id;
+
+        if (!coordinate instanceof Coordinate) {
+            throw new Error('Invalid coordinate!');
+        }
 
         block.style.top = `${coordinate.top}px`;
         block.style.left = `${coordinate.left}px`;
@@ -46,9 +50,5 @@ export class Area {
         }
 
         throw new Error('Invalid argument');
-    }
-
-    clean() {
-        this.#html.innerHTML = '';
     }
 }

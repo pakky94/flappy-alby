@@ -1,6 +1,19 @@
-﻿body {
-    margin: 0;
-    font-family: game, serif, sans-serif;
+﻿#area {
+    position: relative;
+    background: rgb(230, 230, 230, .5);
+    height: 400px;
+    width: 600px;
+    border: black solid 1px;
+
+    overflow: hidden;
+    z-index: 0;
+}
+
+#player {
+    position: absolute;
+    background-image: url('../img/player.jpg');
+
+    z-index: 1;
 }
 
 .block {
@@ -10,60 +23,103 @@
     z-index: 2;
 }
 
-#area {
-    position: relative;
-    background: rgb(230, 230, 230, .5);
-    height: 400px;
-    width: 600px;
-    border: black solid 5px;
-
-    overflow: hidden;
-    z-index: 0;
-}
-
-#player {
-    position: absolute;
-    /*background: coral;*/
-    background-image: url('../img/player.jpg');
-
-    z-index: 1;
-}
-
 #score {
     position: absolute;
-    background: lightblue;
-    font-weight: bold;
-    height: 5%;
-    width: 10%;
     top: 5%;
     left: 85%;
+
+    height: 5%;
+    width: 10%;
+
+    background: lightblue;
+
+    font-weight: bold;
     text-align: center;
     vertical-align: center;
+
     z-index: 3;
 }
 
 #overlay {
     position: absolute;
+
     width: 100%;
     height: 100%;
-    text-align: center;
+
     background: rgba(100, 100, 100, .95);;
-    display: block;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     z-index: 4;
 }
 
-#overlay + span {
-    font-size: 2em;
+#overlay-title {
+    margin: 10% 0 0;
+    font-size: 4.5em;
 }
 
 #overlay-score {
     font-size: 1.5em;
 }
 
-#start-button {
+#overlay-score p {
+    margin: 0;
+}
+
+#overlay-buttons {
     margin-top: 10%;
-    height: 10%;
+}
+
+#overlay-buttons button {
+    width: 30%;
+
+    font-family: inherit;
+    font-size: 1.5em;
+}
+
+#header-level {
+    margin-bottom: 1.5vh;
+    height: 3vh;
     width: 20%;
+    border: black solid 1px;
+    background: deeppink;
+    font-weight: bold;
+
+    text-align: center;
+    vertical-align: center;
+
+    align-self: end;
+}
+
+#lives {
+    position: absolute;
+    top: 90%;
+    left: 4%;
+
+    height: 5%;
+    width: 5%;
+
+    font-size: 1.5em;
+    font-weight: bold;
+    color: deeppink;
+
+    z-index: 5;
+}
+
+#speed {
+    position: absolute;
+    top: 90%;
+    left: 87.5%;
+
+    height: 5%;
+    width: 10%;
+
+    font-size: 1.5em;
+    font-weight: bold;
+    color: black;
+
+    z-index: 5;
 }
 
 .level {

@@ -1,32 +1,25 @@
-﻿import {Coordinate} from "../model/coordinate.js";
-
-export class Player {
+﻿export class Player {
     #area;
+    #height;
+    #width;
+
     #block;
 
-    constructor(area, coordinate = new Coordinate()) {
-        this.#area = area.coordinate;
+    constructor(area, coordinate, steps) {
+        this.#area = area;
+        this.#height = area.coordinate.height;
+        this.#width = area.coordinate.width;
+
         this.#block = area.add(coordinate, 'player');
+        document.onkeydown = e => requestAnimationFrame(() => this.#animate(e, steps));
     }
 
     get coordinate() {
         return this.#block.coordinate;
     }
 
-    start(coordinate, step = 5) {
-
-        if (!coordinate instanceof Coordinate) {
-            throw new Error('Invalid coordinate');
-        }
-
-        this.#block.reset(coordinate);
-        document.onkeydown = e => this.#animate(e, step);
-    }
-
-    stop() {
-        document.onkeydown = () => {
-            console.log('Game paused!');
-        };
+    dispose() {
+        this.#area.remove(this.#block);
     }
 
     #animate(e, step) {
@@ -40,14 +33,14 @@ export class Player {
                 break;
             // RIGHT
             case 39:
-                if (this.coordinate.left < this.#area.width - this.coordinate.width) {
+                if (this.coordinate.left < this.#width - this.coordinate.width) {
                     this.#block.moveRight(step);
                 }
                 break;
 
             // DOWN
             case 40:
-                if (this.coordinate.top < this.#area.height - this.coordinate.height) {
+                if (this.coordinate.top < this.#height - this.coordinate.height) {
                     this.#block.moveBottom(step);
                 }
                 break;

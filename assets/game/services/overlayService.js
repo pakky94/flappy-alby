@@ -11,16 +11,34 @@
         this.#htmlButton = htmlButton;
     }
 
-    static #scoreBuilder(score) {
-        return `<p>Level Score: ${score.current}</p>
-                <p>Final Score: ${score.final}</p>`;
+    static #scoreBuilder(time) {
+        return `<p>Completed In: ${time.partial}</p>
+                <p>Total Time: ${time.total}</p>`;
     }
 
-    levelOver(score, level = "") {
+    hide() {
+        this.#html.style.display = 'none';
+    }
+
+    continue(time) {
+        this.#html.style.display = 'block';
+        this.#htmlTitle.innerHTML = 'Continue ...';
+        this.#htmlScore.innerHTML = OverlayService.#scoreBuilder(time);
+        this.#htmlButton.innerHTML = 'Continue';
+    }
+
+    levelOver(time, level = "") {
         this.#html.style.display = 'block';
         this.#htmlTitle.innerHTML = `Level <span class="level">${level}</span> Over!`;
-        this.#htmlScore.innerHTML = OverlayService.#scoreBuilder(score);
+        this.#htmlScore.innerHTML = OverlayService.#scoreBuilder(time);
         this.#htmlButton.innerHTML = 'Next Level';
+    }
+
+    youWin(time) {
+        this.#html.style.display = 'block';
+        this.#htmlTitle.innerHTML = 'You Win!';
+        this.#htmlScore.innerHTML = OverlayService.#scoreBuilder(time);
+        this.#htmlButton.innerHTML = 'Play Again';
     }
 
     gameOver(score) {
@@ -28,16 +46,5 @@
         this.#htmlTitle.innerHTML = 'Game Over!';
         this.#htmlScore.innerHTML = OverlayService.#scoreBuilder(score);
         this.#htmlButton.innerHTML = 'Retry';
-    }
-
-    congratulations(score) {
-        this.#html.style.display = 'block';
-        this.#htmlTitle.innerHTML = 'Final Level Completed!';
-        this.#htmlScore.innerHTML = OverlayService.#scoreBuilder(score);
-        this.#htmlButton.innerHTML = 'Restart';
-    }
-
-    hide() {
-        this.#html.style.display = 'none';
     }
 }

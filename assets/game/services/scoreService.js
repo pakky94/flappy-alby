@@ -1,34 +1,32 @@
-﻿import {Score} from "../model/scores.js";
-
-export class ScoreService {
+﻿export class ScoreService {
     #html;
-    #score;
+    #percentage = 0;
 
-    constructor(html, score, total) {
+    constructor(html) {
         this.#html = html;
-        this.#score = new Score(score, total);
     }
 
-    get score() {
-        return this.#score;
+    get percentage() {
+        return Math.trunc(this.#percentage);
     };
 
-    increase(step) {
-        this.#score.increase(step);
-        this.#print();
+    reset() {
+        this.#percentage = 0;
+        this.#update();
     }
 
-    reset(score) {
-        this.#score.reset(score);
-        this.#print();
+    calc(current, final) {
+        this.#percentage = current / final * 100;
+        this.#update();
     }
 
-    clear(score, total) {
-        this.#score.clear(score, total)
-        this.#print();
+    complete() {
+        this.#percentage++;
+        this.#update();
     }
 
-    #print() {
-        this.#html.innerText = this.#score.current;
+
+    #update() {
+        this.#html.innerText = `${this.percentage}%`;
     }
 }
