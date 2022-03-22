@@ -16,23 +16,22 @@ export class Area {
     }
 
     add(coordinate, id = Helpers.uuidv4()) {
-        let block = document.createElement('div');
+        const html = document.createElement('div');
 
-        block.classList.add('block');
-        block.id = id;
+        html.classList.add('block');
+        html.id = id;
 
         if (!coordinate instanceof Coordinate) {
             throw new Error('Invalid coordinate!');
         }
 
-        block.style.top = `${coordinate.top}px`;
-        block.style.left = `${coordinate.left}px`;
-        block.style.width = `${coordinate.width}px`;
-        block.style.height = `${coordinate.height}px`;
+        html.style.width = `${coordinate.width}px`;
+        html.style.height = `${coordinate.height}px`;
 
-        this.#html.appendChild(block);
+        this.#html.appendChild(html);
 
-        return new Block(block, coordinate, this.#coordinate);
+        return new Block(html, coordinate)
+            .translate(coordinate);
     }
 
     remove(blocks) {

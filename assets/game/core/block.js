@@ -21,28 +21,31 @@
 
     moveTop(step) {
         this.#coordinate.moveTop(step);
-        this.#html.style.top = `${this.#coordinate.top}px`;
+        this.translate(this.#coordinate);
     }
 
     moveRight(step) {
         this.#coordinate.moveRight(step);
-        this.#html.style.left = `${this.#coordinate.left}px`;
+        this.translate(this.#coordinate);
     }
 
     moveBottom(step) {
         this.#coordinate.moveBottom(step);
-        this.#html.style.top = `${this.#coordinate.top}px`;
+        this.translate(this.#coordinate);
     }
 
     moveLeft(step) {
         this.#coordinate.moveLeft(step);
-        this.#html.style.left = `${this.#coordinate.left}px`;
+        this.translate(this.#coordinate);
     }
 
     reset(coordinate) {
-        this.#html.style.top = `${coordinate.top}px`;
-        this.#html.style.left = `${coordinate.left}px`;
-
+        this.translate(coordinate);
         this.#coordinate = coordinate;
+    }
+
+    translate(coordinate) {
+        this.#html.style.transform = `translateX(${coordinate.left}px) translateY(${coordinate.top}px)`;
+        return this;
     }
 }
