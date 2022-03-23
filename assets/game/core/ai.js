@@ -13,7 +13,8 @@
 
     start(playerCoordinate, steps) {
         this.#build(playerCoordinate);
-        window.requestAnimationFrame(timestamp => this.#animate(playerCoordinate, steps)(timestamp));
+
+        window.requestAnimationFrame(_ => this.#animate(playerCoordinate, steps));
     }
 
     stop() {
@@ -28,11 +29,8 @@
         return this.#blocks.some(blocks => blocks.some(block => block.crash(playerCoordinate)));
     }
 
-    #animate = (playerCoordinate, steps = 1, start) => timestamp => {
+    #animate = (playerCoordinate, steps = 1) => {
         if (this.#blocks.length <= 0) return;
-
-        if (start === undefined) start = timestamp;
-        const elapsed = timestamp - start;
 
         // move all blocks left
         for (let blocks of this.#blocks) {
@@ -56,10 +54,10 @@
         }
 
         // callback to game class
-        const _continue = this.#onStepOver(elapsed);
+        const $continue = this.#onStepOver();
 
-        if (_continue) {
-            window.requestAnimationFrame(this.#animate(playerCoordinate, steps, start));
+        if ($continue) {
+            window.requestAnimationFrame(_ => this.#animate(playerCoordinate, steps));
         }
     }
 

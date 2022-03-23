@@ -1,20 +1,15 @@
 ﻿export class Option {
-    #speed;
     #step;
     #playerStep;
-    #finalScore;
+    #finalTime;
     #coordinate;
 
-    constructor(coordinate, speed = 5, step = 1, playerStep = 5, finalScore = 1000) {
-        this.#speed = speed;
+    constructor(coordinate, step = 1, playerStep = 5, finalTime = 1000) {
+        this.#coordinate = coordinate;
+
         this.#step = step;
         this.#playerStep = playerStep;
-        this.#finalScore = finalScore;
-        this.#coordinate = coordinate;
-    }
-
-    get speed() {
-        return this.#speed;
+        this.#finalTime = finalTime;
     }
 
     get steps() {
@@ -26,7 +21,7 @@
     }
 
     get finalTime() {
-        return this.#finalScore;
+        return this.#finalTime;
     }
 
     get coordinate() {

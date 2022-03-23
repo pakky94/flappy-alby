@@ -11,7 +11,7 @@
         this.#width = area.coordinate.width;
 
         this.#block = area.add(coordinate, 'player');
-        document.onkeydown = e => requestAnimationFrame(() => this.#animate(e, steps));
+        document.onkeydown = e => requestAnimationFrame(_ => this.#animate(e, steps));
     }
 
     get coordinate() {

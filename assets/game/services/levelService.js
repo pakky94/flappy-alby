@@ -40,8 +40,4 @@
     update() {
         this.#html.innerHTML = `Level: ${this.level}`;
     }
-
-    over(finalScore) {
-        return finalScore <= this.currentOptions.score;
-    }
 }
