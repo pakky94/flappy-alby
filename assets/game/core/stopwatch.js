@@ -1,4 +1,4 @@
-﻿export class Stopwatch {
+export class Stopwatch {
     #start = 0;
     #final = 10000;
 
@@ -14,6 +14,11 @@
 
     get total() {
         return new Date(this.#total);
+    }
+
+    get formattedTotal() {
+        let t = this.total;
+        return `${ (t.getHours()-1).round2() }:${ t.getMinutes().round2() }:${ t.getSeconds().round2() }.${ t.getMilliseconds().round2() }`
     }
 
     get over() {

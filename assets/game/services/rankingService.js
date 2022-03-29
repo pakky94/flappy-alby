@@ -9,8 +9,13 @@
         this.#url = url;
     }
 
-    show() {
-        this.#http.get(this.#url, this.#print);
+    show(callback) {
+        this.#http.get(this.#url, callback);
+    }
+
+    sendScore(name, stopwatch, callback) {
+        let total = stopwatch.formattedTotal;
+        this.#http.post(this.#url, JSON.stringify({Name: name, Total: total}), callback);
     }
 
     hide() {

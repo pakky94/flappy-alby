@@ -1,4 +1,4 @@
-﻿import {Ai} from "./core/ai.js";
+import {Ai} from "./core/ai.js";
 import {Player} from "./core/player.js";
 import {BarrierSchema} from "./schemas/barrierSchema.js";
 import {Stopwatch} from "./core/stopwatch.js";
@@ -16,6 +16,8 @@ export class Game {
 
     #stopwatch;
 
+    #playerName;
+
     constructor(area, statisticsService, overlayService, levelService, livesService, rankingService) {
         this.#area = area;
 
@@ -26,11 +28,12 @@ export class Game {
         this.#rankingService = rankingService;
     }
 
-    nextLevel() {
+    nextLevel(playerName) {
         if (this.#levelService.first && !this.#livesService.alive) {
             this.#livesService.recover();
             this.#rankingService.hide();
             this.#stopwatch = new Stopwatch();
+            this.#playerName = playerName;
         }
 
         const options = this.#levelService.currentOptions;
@@ -91,7 +94,7 @@ export class Game {
                 // Game Over (you LOOSE)  =>  players.count <= 0
                 this.#overlayService.gameOver(this.#stopwatch);
                 this.#levelService.reset();
-                this.#rankingService.show();
+                this.#rankingService.show(this.#overlayService.displayLeaderboard);
             }
         }
 
@@ -113,6 +116,9 @@ export class Game {
                 this.#overlayService.youWin(this.#stopwatch);
                 this.#levelService.reset();
                 this.#livesService.kill();
+                this.#rankingService.sendScore(this.#playerName, this.#stopwatch, () => {
+                    this.#rankingService.show(this.#overlayService.displayLeaderboard);
+                });
             } else {
                 // SOME REMAINING LEVELS (NEXT Level) => levelIndex <= totalLevels
                 this.#overlayService.levelOver(this.#stopwatch, this.#levelService.level);

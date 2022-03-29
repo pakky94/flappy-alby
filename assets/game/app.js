@@ -16,11 +16,13 @@ import {RankingService} from "./services/rankingService.js";
         const html_overlay = document.getElementById('overlay');
         const html_overlay_title = document.getElementById('overlay-title');
         const html_overlay_score = document.getElementById('overlay-score');
+        const html_overlay_leaderboard = document.getElementById('overlay-leaderboard');
         const html_start_button = document.getElementById('overlay-button');
         const html_level = document.getElementById('header-level');
         const html_lives = document.getElementById('lives');
         const html_speed = document.getElementById('speed');
         const html_ranking = document.getElementById('ranking');
+        const html_player_name_input = document.getElementById('player-name-input');
 
         const areaCoordinate = new Coordinate(0, 0, html_area.clientHeight, html_area.clientWidth);
         const area = new Area(html_area, areaCoordinate);
@@ -33,13 +35,13 @@ import {RankingService} from "./services/rankingService.js";
         }
 
         const statisticsService = new StatisticsService(area.coordinate, html_speed, html_percentage);
-        const overlayService = new OverlayService(html_overlay, html_overlay_title, html_overlay_score, html_start_button);
+        const overlayService = new OverlayService(html_overlay, html_overlay_title, html_overlay_score, html_overlay_leaderboard, html_start_button);
         const levelService = new LevelService(html_level, levelsOptions);
         const livesService = new LivesService(html_lives);
         const httpService = new HttpService();
         const rankingService = new RankingService(html_ranking, httpService, 'http://localhost:5126/ranking');
 
         const game = new Game(area, statisticsService, overlayService, levelService, livesService, rankingService);
-        html_start_button.onclick = () => game.nextLevel()();
+        html_start_button.onclick = () => game.nextLevel(html_player_name_input.value)();
     });
 })();

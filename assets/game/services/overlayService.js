@@ -2,12 +2,14 @@
     #html;
     #htmlTitle
     #htmlScore;
+    #htmlLeaderboard;
     #htmlButton;
 
-    constructor(html, htmlTitle, htmlScore, htmlButton) {
+    constructor(html, htmlTitle, htmlScore, htmlLeaderboard, htmlButton) {
         this.#html = html;
         this.#htmlTitle = htmlTitle;
         this.#htmlScore = htmlScore;
+        this.#htmlLeaderboard = htmlLeaderboard;
         this.#htmlButton = htmlButton;
     }
 
@@ -24,6 +26,7 @@
         this.#html.style.display = 'block';
         this.#htmlTitle.innerHTML = 'Continue ...';
         this.#htmlScore.innerHTML = OverlayService.#timesBuilder(stopwatch);
+        this.#htmlLeaderboard.style.display = 'none';
         this.#htmlButton.innerHTML = 'Continue';
     }
 
@@ -31,6 +34,7 @@
         this.#html.style.display = 'block';
         this.#htmlTitle.innerHTML = `Level <span class="level">${level}</span> Over!`;
         this.#htmlScore.innerHTML = OverlayService.#timesBuilder(stopwatch);
+        this.#htmlLeaderboard.style.display = 'none';
         this.#htmlButton.innerHTML = 'Next Level';
     }
 
@@ -46,5 +50,17 @@
         this.#htmlTitle.innerHTML = 'Game Over!';
         this.#htmlScore.innerHTML = OverlayService.#timesBuilder(stopwatch);
         this.#htmlButton.innerHTML = 'Retry';
+    }
+
+    displayLeaderboard = (response) => {
+        this.#htmlLeaderboard.style.display = 'block';
+
+        let html = '<ol>';
+        for (const player of JSON.parse(response)) {
+            html += `<li>${player.name} - ${player.total}</li>`;
+        }
+        html += '</ol>';
+
+        this.#htmlLeaderboard.innerHTML = html;
     }
 }
