@@ -1,4 +1,4 @@
-import {Ai} from "./core/ai.js";
+﻿import {Ai} from "./core/ai.js";
 import {Player} from "./core/player.js";
 import {BarrierSchema} from "./schemas/barrierSchema.js";
 import {Stopwatch} from "./core/stopwatch.js";
@@ -53,9 +53,9 @@ export class Game {
         }
     }
 
-    #onStepOver = () => {
+    #onStepOver = (timestep) => {
         this.#statisticsService.reload(this.#player.coordinate, this.#stopwatch);
-        this.#stopwatch.applyBonus(this.#statisticsService.bonus);
+        this.#stopwatch.applyBonus(this.#statisticsService.bonus, timestep);
 
         const gameOver = this.#onGameOver();
         if (gameOver) return false;

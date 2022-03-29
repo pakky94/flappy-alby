@@ -1,4 +1,4 @@
-export class Stopwatch {
+﻿export class Stopwatch {
     #start = 0;
     #final = 10000;
 
@@ -34,7 +34,7 @@ export class Stopwatch {
         this.#total += this.#final;
     }
 
-    applyBonus(value) {
-        this.#final -= value;
+    applyBonus(value, timestep) {
+        this.#final -= value * timestep;
     }
 }

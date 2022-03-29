@@ -18,7 +18,7 @@
     }
 
     get bonus() {
-        return (this.#speed - 1) * 10;
+        return (this.#speed - 1);
     }
 
     start() {

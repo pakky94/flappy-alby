@@ -2,6 +2,7 @@
     #area;
     #schema;
     #onStepOver;
+    #lastTimestamp;
 
     #blocks = [];
 
@@ -14,7 +15,8 @@
     start(playerCoordinate, steps) {
         this.#build(playerCoordinate);
 
-        window.requestAnimationFrame(_ => this.#animate(playerCoordinate, steps));
+        this.#lastTimestamp = performance.now();
+        window.requestAnimationFrame(timestamp => this.#animate(timestamp, playerCoordinate, steps));
     }
 
     stop() {
@@ -29,7 +31,10 @@
         return this.#blocks.some(blocks => blocks.some(block => block.crash(playerCoordinate)));
     }
 
-    #animate = (playerCoordinate, steps = 1) => {
+    #animate = (timestamp, playerCoordinate, steps = 1) => {
+        let timestep = timestamp - this.#lastTimestamp;
+        this.#lastTimestamp = timestamp;
+
         if (this.#blocks.length <= 0) return;
 
         // move all blocks left
@@ -54,10 +59,10 @@
         }
 
         // callback to game class
-        const $continue = this.#onStepOver();
+        const $continue = this.#onStepOver(timestep);
 
         if ($continue) {
-            window.requestAnimationFrame(_ => this.#animate(playerCoordinate, steps));
+            window.requestAnimationFrame(newTimestamp => this.#animate(newTimestamp, playerCoordinate, steps));
         }
     }
 
