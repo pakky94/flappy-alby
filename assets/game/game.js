@@ -12,21 +12,24 @@ export class Game {
     #overlayService;
     #levelService;
     #livesService;
+    #rankingService;
 
     #stopwatch;
 
-    constructor(area, statisticsService, overlayService, levelService, livesService) {
+    constructor(area, statisticsService, overlayService, levelService, livesService, rankingService) {
         this.#area = area;
 
         this.#statisticsService = statisticsService;
         this.#overlayService = overlayService;
         this.#levelService = levelService;
         this.#livesService = livesService;
+        this.#rankingService = rankingService;
     }
 
     nextLevel() {
         if (this.#levelService.first && !this.#livesService.alive) {
             this.#livesService.recover();
+            this.#rankingService.hide();
             this.#stopwatch = new Stopwatch();
         }
 
@@ -88,6 +91,7 @@ export class Game {
                 // Game Over (you LOOSE)  =>  players.count <= 0
                 this.#overlayService.gameOver(this.#stopwatch);
                 this.#levelService.reset();
+                this.#rankingService.show();
             }
         }
 

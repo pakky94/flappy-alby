@@ -6,6 +6,8 @@ import {Game} from "./game.js";
 import {Coordinate} from "./model/coordinate.js";
 import {LivesService} from "./services/livesService.js";
 import {StatisticsService} from "./services/statisticsService.js";
+import {HttpService} from "./services/httpService.js";
+import {RankingService} from "./services/rankingService.js";
 
 (function () {
     document.addEventListener('DOMContentLoaded', () => {
@@ -18,6 +20,7 @@ import {StatisticsService} from "./services/statisticsService.js";
         const html_level = document.getElementById('header-level');
         const html_lives = document.getElementById('lives');
         const html_speed = document.getElementById('speed');
+        const html_ranking = document.getElementById('ranking');
 
         const areaCoordinate = new Coordinate(0, 0, html_area.clientHeight, html_area.clientWidth);
         const area = new Area(html_area, areaCoordinate);
@@ -33,8 +36,10 @@ import {StatisticsService} from "./services/statisticsService.js";
         const overlayService = new OverlayService(html_overlay, html_overlay_title, html_overlay_score, html_start_button);
         const levelService = new LevelService(html_level, levelsOptions);
         const livesService = new LivesService(html_lives);
+        const httpService = new HttpService();
+        const rankingService = new RankingService(html_ranking, httpService, 'http://localhost:5126/ranking');
 
-        const game = new Game(area, statisticsService, overlayService, levelService, livesService);
+        const game = new Game(area, statisticsService, overlayService, levelService, livesService, rankingService);
         html_start_button.onclick = () => game.nextLevel()();
     });
 })();
